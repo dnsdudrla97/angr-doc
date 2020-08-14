@@ -21,9 +21,27 @@ def solve2():
 
     print(sm.found[0].posix.dumps(0))
 
+''' decorate test '''
+def deco(func):
+    def in_deco():
+        print("HI I'm DECO!!")
+        func()
+        print("YEAH!!!!!!!!")
+    return in_deco
+
+def bot1():
+    print("I need deco...")
+
+@deco
+def bot2():
+    print("I get deco!!!!")
+
+
 
 def main():
-    solve1()
+    # solve1()
+    bot2()
+    
 
 if __name__ == "__main__":
     main()
