@@ -1,15 +1,9 @@
 import angr
-<<<<<<< HEAD
 from pwn import *
 PATH='./sakura'
 
 # def main():
 # global PATH
-=======
-import os
-import sys
-from pwn import *
->>>>>>> ea3d42e2b80eed8a0d3d9ff2f212313f88b3b2f3
 
 data = open("./sakura", "rb").read()
 
