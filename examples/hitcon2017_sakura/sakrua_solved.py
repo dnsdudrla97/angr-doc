@@ -1,39 +1,51 @@
 import angr
+<<<<<<< HEAD
+from pwn import *
+PATH='./sakura'
+
+# def main():
+# global PATH
+=======
 import os
 import sys
 from pwn import *
+>>>>>>> ea3d42e2b80eed8a0d3d9ff2f212313f88b3b2f3
 
 data = open("./sakura", "rb").read()
 
-finds = []
-avoids = []
-index = 0
-count = 0
+find_list = []
+avoid_list = []
+idx = 0
+cnt = 0
+
 while True:
-    res = data.find(b"\xC6\x85\xB7\xE1\xFF\xFF\x00", index)
+    res = data.find(b"\xC6\x85\xB7\xE1\xFF\xFF\x00", idx)
     # print(hex(res))
     if res == -1:
         break
     
-    avoids.append(0x400000 + res)
+    avoid_list.append(0x400000 + res)
     
-    if count % 3 == 2:
-        finds.append(0x400000 + res + 7)
+    if cnt % 3 == 2:
+        find_list.append(0x400000 + res + 7)
         
-    count += 1
-    index = res + 1
+    cnt += 1
+    idx = res + 1
 
 p = angr.Project('./sakura')
 state = p.factory.entry_state()
 
-for find in finds:
+for find in find_list:
     #print(hex(find))
     sm=p.factory.simgr(state)
-    simgr.explore(find=find, avoid=avoids)
-    state=simgr.found[0]
+    sm.explore(find=find, avoid=avoid_list)
+    state=sm.found[0]
     # print(repr(state.posix.dumps(0)))
+    
+# rst=process(PATH, repr(state.posix.dumps(0)))
+# log.info("FLAG: {a}".format(a=rst))
 
-open("flag_input", 'wb').write(state.posix.dumps(0))
 
 
-
+# if __name__ == "__main__":
+#     main()
